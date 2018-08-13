@@ -3,8 +3,10 @@ package com.sino.newasia.neworder.Entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-@RedisHash("Officer")
-public class UserEntity {
+import java.io.Serializable;
+
+@RedisHash("UserEntity")
+public class UserEntity  implements Serializable {
 
 
 

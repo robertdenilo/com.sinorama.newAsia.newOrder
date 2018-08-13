@@ -1,4 +1,4 @@
-package com.sino.newasia.neworder.LoginService;
+package com.sino.newasia.neworder.Service.LoginService;
 
 public class LoginService {
 
