@@ -31,8 +31,9 @@ public class RedisCacheConfig {
     }
 
 
-    @Bean
+    @Bean(name="redisConnectionFactory")
     public JedisConnectionFactory redisConnectionFactory() {
+        System.out.println("im in seriallizer for factory");
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
         //读取ap配置方法1：String str1=ConfigurableApplicationContext.getEnvironment().getProperty("aaa");
         //读取ap配置方法2：
@@ -48,6 +49,7 @@ public class RedisCacheConfig {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory){
+        System.out.println("im in seriallizer for cache mgr");
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofHours(1)); // 设置缓存有效期一小时
         return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory)).cacheDefaults(redisCacheConfiguration).build();
@@ -59,6 +61,7 @@ public class RedisCacheConfig {
     }
     @Bean(name="redisTemplate")
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory){
+        System.out.println("im in seriallizer for temp");
         RedisTemplate<String, String> redisTemplate = new RedisTemplate<String,String>();
         redisTemplate.setConnectionFactory(factory);
         // key序列化方式;（不然会出现乱码;）,但是如果方法上有Long等非String类型的话，会报类型转换错误；

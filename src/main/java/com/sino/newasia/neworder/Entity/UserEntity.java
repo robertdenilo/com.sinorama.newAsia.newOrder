@@ -8,8 +8,6 @@ import java.io.Serializable;
 @RedisHash("UserEntity")
 public class UserEntity  implements Serializable {
 
-
-
     @Id
     private String Id;
     private String UserName;
