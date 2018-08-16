@@ -4,12 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 
 //@NamedQuery(name="tour.maininfo",query="select t.tourid, t.routeid,t.departdate, t.tourpid, t.status from t_tour t")
 @Entity
 @Table(name = "t_tour")
-public class Tour {
+public class Tour   implements Serializable {
     public String getTourid() {
         return tourid;
     }

@@ -53,6 +53,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Bean
     public JedisConnectionFactory redisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        System.out.println("im in seriallizer JedisConnectionFactory xxxxxxxxxxxxxxxx");
         //读取ap配置方法1：String str1=ConfigurableApplicationContext.getEnvironment().getProperty("aaa");
         //读取ap配置方法2：
         jedisConnectionFactory.setUsePool(true);
@@ -67,6 +68,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+        System.out.println("im in seriallizer cacheManager xxxxxxxxxxxxxxxx");
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofHours(1)); // 设置缓存有效期一小时
         return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory)).cacheDefaults(redisCacheConfiguration).build();
@@ -74,7 +76,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean(name="redisTemplate")
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory){
-        System.out.println("im in seriallizer xxxxxxxxxxxxxxxx");
+        System.out.println("im in seriallizer Redis Config xxxxxxxxxxxxxxxx");
         StringRedisTemplate redisTemplate = new StringRedisTemplate(factory);
         @SuppressWarnings({ "rawtypes", "unchecked" })
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
