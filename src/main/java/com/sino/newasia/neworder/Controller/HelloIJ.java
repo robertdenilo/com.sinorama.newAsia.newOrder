@@ -1,11 +1,13 @@
 package com.sino.newasia.neworder.Controller;
 
 import com.sino.newasia.neworder.Entity.Test;
+import com.sino.newasia.neworder.Entity.Test2;
 import com.sino.newasia.neworder.Entity.Tour;
 import com.sino.newasia.neworder.Entity.UserEntity;
 import com.sino.newasia.neworder.Repository.TourRepository.TestRepository;
 import com.sino.newasia.neworder.Repository.TourRepository.TourRepository;
 import com.sino.newasia.neworder.Repository.UserRepository.UserRepository;
+import com.sino.newasia.neworder.Service.Test2Service.Test2ServiceInt;
 import com.sino.newasia.neworder.Service.TourService.TourServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -117,6 +119,12 @@ public class HelloIJ {
         return tourServiceInt.getTourWithRedisCache();
     }
 
-
+    @Autowired
+    public Test2ServiceInt test2ServiceInt;
+    @GetMapping(value="/getTest2Redis")
+    public List<Test2> getTest2WithRedisCache(){
+        System.out.println("Test2:只有第一次才会打印sql语句");
+        return test2ServiceInt.getTest2WithRedisCache();
+    }
 
 }
