@@ -3,6 +3,7 @@ package com.sino.newasia.neworder.Controller;
 
 import com.sino.newasia.neworder.Repository.TourRepository.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,6 +78,16 @@ public class TourController {
                 .setParameter("routeid",routeid)
                 .getResultList();
         return arr_cust;
+    }
+
+
+    //http://localhost:9999/asiaTour/getToursPage/BHHS-11-2019
+    @GET
+    @Produces("application/json")   //application/xml
+    @RequestMapping("/getToursPage/{routeid}")
+    public Object getToursPage(@PathVariable("routeid") String routeid) {
+        System.out.println("jsonjson pojo: "+ routeid);
+        return tourRepository.findAll(new PageRequest(2,3));
     }
 
 }
