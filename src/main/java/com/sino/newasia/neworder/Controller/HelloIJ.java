@@ -5,7 +5,6 @@ import com.sino.newasia.neworder.Entity.Test2;
 import com.sino.newasia.neworder.Entity.Tour;
 import com.sino.newasia.neworder.Entity.UserEntity;
 import com.sino.newasia.neworder.Repository.TourRepository.TestRepository;
-import com.sino.newasia.neworder.Repository.TourRepository.TourRepository;
 import com.sino.newasia.neworder.Repository.UserRepository.UserRepository;
 import com.sino.newasia.neworder.Service.Test2Service.Test2ServiceInt;
 import com.sino.newasia.neworder.Service.TourService.TourServiceInt;
@@ -95,9 +94,6 @@ public class HelloIJ {
     }
 
 
-
-    @Autowired
-    private TourRepository tourRepository;
     @Autowired
     private TestRepository testRepository;
     //use JPA to connect DB with JPA config in app.prop, Test Entity, TestRepository interface (jump service layer) and notice: @EnableJpaRepositories("com.sino.newasia.neworder.Repository")
