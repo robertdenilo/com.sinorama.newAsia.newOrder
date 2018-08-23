@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "jpatest")
@@ -70,5 +71,23 @@ public class JPAController {
         System.out.println("jsonjson2:"+name);
        // return jpaRepository.findFirst1ByName(name);
         return jpaRepository.findAllByName(name);
+    }
+
+    @GET
+    @Produces("application/json")   //application/xml
+    @RequestMapping("/getRec3/{name}")
+    public List<Test_JPA> getRec3(@PathVariable("name") String name) {
+        System.out.println("jsonjson3:"+name);
+        return jpaRepository.callStore(name);
+    }
+
+
+    @GET
+    @Produces("application/json")   //application/xml
+    @RequestMapping("/getRec4/{name}")
+    public String getRec4(@PathVariable("name") String name) {
+        System.out.println("jsonjson4:"+name);
+        return jpaRepository.callProc(name);
+
     }
 }
