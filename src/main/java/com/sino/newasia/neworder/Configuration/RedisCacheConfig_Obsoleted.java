@@ -5,12 +5,12 @@ package com.sino.newasia.neworder.Configuration;
 //@PropertySource("classpath:jdbc.properties")//如果是application.properties，就不用写@PropertyScource("application.properties")，其他名字用些   @Value("${jdbc.user}") private String user;
 //@Configuration
 //@EnableCaching
-public class RedisCacheConfig {
+public class RedisCacheConfig_Obsoleted {
 
 //    @Autowired
 //    private Environment env;
 //
-//    public RedisCacheConfig(){
+//    public RedisCacheConfig_Obsoleted(){
 //    }
 //
 //

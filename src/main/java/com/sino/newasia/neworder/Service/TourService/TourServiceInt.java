@@ -2,6 +2,7 @@ package com.sino.newasia.neworder.Service.TourService;
 
 import com.sino.newasia.neworder.Entity.Tour;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -11,4 +12,9 @@ public interface TourServiceInt {
 
     Page<Tour> findTourNoCriteria(Integer page, Integer size);
     //Page<Tour> findTourCriteria(Integer page,Integer size,TourQuery bookQuery);
+
+    Page<Tour> findTourCriteria(Integer page, Integer size, final Tour tour, Pageable pageable);
+
+
+    public void save(Tour tour);
 }
