@@ -40,7 +40,7 @@ public class TourService implements  TourServiceInt{
     }
 
     @Override
-    public Page<Tour> findTourCriteria(Integer page, Integer size, final Tour tour, Pageable pageable) {
+    public Page<Tour> findTourCriteria(final Tour tour, Pageable pageable) {   //Integer page, Integer size, 
         //Pageable pageable = new PageRequest(page, size, Sort.Direction.ASC, "departdate");
         Page<Tour> tourPage = tourRepository.findAll(new Specification<Tour>(){
             @Override

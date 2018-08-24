@@ -118,11 +118,11 @@ public class TourController {
         t1.setRouteid(routeid);
         t1.setDepartdate(departdate);
         Pageable pageable = new PageRequest(3, 10, Sort.Direction.ASC, "departdate");
-        Page<Tour> pt = tourServiceInt.findTourCriteria(3,30, t1, pageable);
+        Page<Tour> pt = tourServiceInt.findTourCriteria(t1, pageable);
         List<Tour> lt = pt.getContent();
 
         //while(!pt.isLast()){
-            pt = tourServiceInt.findTourCriteria(3,30, t1, pageable.next());
+            pt = tourServiceInt.findTourCriteria( t1, pageable.next());
             List<Tour> listData = pt.getContent();
 
         //}
