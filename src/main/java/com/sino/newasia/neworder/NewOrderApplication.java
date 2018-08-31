@@ -25,9 +25,9 @@ public class NewOrderApplication {
         Properties prop = new Properties();
 //        InputStream in = Application.class.getClassLoader().getResourceAsStream("classpath:application2.properties");
         try {
-        File file = ResourceUtils.getFile("classpath:application2.properties");
-        InputStream in = new FileInputStream(file);
-        prop.load(in);
+            File file = ResourceUtils.getFile("classpath:application2.properties");
+            InputStream in = new FileInputStream(file);
+            prop.load(in);
 
         } catch (FileNotFoundException e) {
 
