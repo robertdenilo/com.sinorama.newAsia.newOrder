@@ -1,4 +1,4 @@
-package com.sino.newasia.neworder.LoginController;
+package com.sino.newasia.neworder.Controller.LoginController;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

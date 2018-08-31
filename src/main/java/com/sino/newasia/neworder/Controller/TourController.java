@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.jws.Oneway;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -115,6 +114,7 @@ public class TourController {
     public List<Tour> getTourWithCriteria(@PathVariable("routeid") String routeid, @PathVariable("departdate") String departdate){
         System.out.println("page with criteria");
         Tour t1 = new Tour();
+
         t1.setRouteid(routeid);
         t1.setDepartdate(departdate);
         Pageable pageable = new PageRequest(3, 10, Sort.Direction.ASC, "departdate");

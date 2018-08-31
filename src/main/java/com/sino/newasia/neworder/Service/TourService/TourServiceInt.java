@@ -13,7 +13,7 @@ public interface TourServiceInt {
     Page<Tour> findTourNoCriteria(Integer page, Integer size);
     //Page<Tour> findTourCriteria(Integer page,Integer size,TourQuery bookQuery);
 
-    Page<Tour> findTourCriteria(final Tour tour, Pageable pageable);  //Integer page, Integer size, 
+    Page<Tour> findTourCriteria(final Tour tour, Pageable pageable);  //Integer page, Integer size,
 
 
     public void save(Tour tour);
