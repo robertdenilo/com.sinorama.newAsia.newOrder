@@ -38,17 +38,18 @@ public class LoginController {
     //{"officerId":"zhouming","password":"123456"}
     @RequestMapping(value = "/assign_Login/login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String login(@RequestBody JSONObject jsonParam){
+        boolean chlResult = false;
         if(jsonParam.containsKey("officerId") && jsonParam.containsKey("password")){
             String username = (String)jsonParam.get("officerId");
             String pwd = (String)jsonParam.get("password");
-            officerService.verify(username,pwd);
+            chlResult = officerService.verify(username,pwd);
             Officer listObj = officerService.getOfficerByName(username);
         }
 
         JSONObject result = new JSONObject();
         result.put("msg", "ok");
         result.put("method", "json");
-        result.put("data", jsonParam);
+        result.put("data", chlResult);
 
         return result.toJSONString();
 

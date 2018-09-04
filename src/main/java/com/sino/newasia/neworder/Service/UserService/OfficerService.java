@@ -2,6 +2,7 @@ package com.sino.newasia.neworder.Service.UserService;
 
 import com.sino.newasia.neworder.Entity.Officer;
 import com.sino.newasia.neworder.Repository.UserRepository.OfficerRepo;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,17 @@ public class OfficerService implements OfficerServiceInt {
     public boolean verify(String username, String pwd){
         Officer userEntity = officeRepo.findAllByEmail(username).get(0);
         String encryptPwd = userEntity.getPwd();
-        return true;
+        String newEncryptPwd = convertPhpPwd(encryptPwd);
+        if(BCrypt.checkpw(pwd,newEncryptPwd)){
+            System.out.println("Matched");
+            return true;
+        }else{
+            System.out.println("Not Matchec");
+            return false;
+        }
+
+    }
+    public String convertPhpPwd(String pwd){
+        return "$2a".concat(pwd.substring(3));
     }
 }
