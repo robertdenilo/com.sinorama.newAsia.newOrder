@@ -13,7 +13,7 @@ import java.util.Properties;
 
 @ServletComponentScan
 @SpringBootApplication
-@EnableJpaRepositories({"com.sino.newasia.neworder.Repository.TourRepository","com.sino.newasia.neworder.Repository.Test2Repository","com.sino.newasia.neworder.Repository.TestJPARepository"})
+@EnableJpaRepositories({"com.sino.newasia.neworder.Repository.TourRepository","com.sino.newasia.neworder.Repository.Test2Repository","com.sino.newasia.neworder.Repository.TestJPARepository","com.sino.newasia.neworder.Repository.UserRepository"})
 //@PropertySource("classpath:xxx.properties")
 //@EnableAutoConfiguration
 public class NewOrderApplication {

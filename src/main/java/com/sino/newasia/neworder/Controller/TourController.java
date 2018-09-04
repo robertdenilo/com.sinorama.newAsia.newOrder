@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,7 +78,7 @@ public class TourController {
     @GET
     @Produces("application/json")   //application/xml
     @RequestMapping("/getToursFromNativeEm/{routeid}")
-    public List  getToursFromNativeEm(@PathVariable("routeid") String routeid){
+    public List  getToursFromNativeEm(@PathVariable("routeid") String routeid, Model model){ //return List=>String
         System.out.println("jsonjson em: "+ routeid);
         EntityManager em = emf.createEntityManager(); // With parameter
         List arr_cust = em
@@ -85,6 +86,8 @@ public class TourController {
                 .setParameter("routeid",routeid)
                 .getResultList();
         return arr_cust;
+        //model.addAttribute("tours",arr_cust);
+        //return "tourResult";       //if use thymeleaf: 1 must be Controller, can NOT be RestController, 2 add Model model in parameters list. 3, return String
     }
 
 
