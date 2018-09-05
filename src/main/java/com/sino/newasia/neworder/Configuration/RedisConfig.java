@@ -19,6 +19,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -77,19 +78,34 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Bean(name="redisTemplate")
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory){
         System.out.println("im in seriallizer Redis Config xxxxxxxxxxxxxxxx");
-        StringRedisTemplate redisTemplate = new StringRedisTemplate(factory);
+        StringRedisTemplate redisTemplate = new StringRedisTemplate(factory);   //return with RedisTemplate<String, String>
+        //RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
+        //redisTemplate.setConnectionFactory(factory);   // return with RedisTemplate<Object, Object>
+
         @SuppressWarnings({ "rawtypes", "unchecked" })
+        //start: use Jackson2JsonRedisSerializer to serialized/de-serialized value
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(om);
+        //end
+        //use StringRedisSerializer to serialized/de-serialized key
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.afterPropertiesSet();
 
         return redisTemplate;
     }
 
+
+
+//    @Bean
+//    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory) {
+//        StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
+//        stringRedisTemplate.setConnectionFactory(factory);
+//        return stringRedisTemplate;
+//    }
 
 //    public CacheManager cacheManager(@SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
 //        return new RedisCacheManager(redisTemplate);

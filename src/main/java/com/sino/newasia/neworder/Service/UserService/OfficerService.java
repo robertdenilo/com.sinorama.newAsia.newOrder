@@ -4,15 +4,28 @@ import com.sino.newasia.neworder.Entity.Officer;
 import com.sino.newasia.neworder.Repository.UserRepository.OfficerRepo;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @Service
 public class OfficerService implements OfficerServiceInt {
     @Autowired
     private OfficerRepo officeRepo;
 
+    @Resource
+    private RedisTemplate<String, Officer> redisTemplate;
+
     public Officer getOfficerByName(String email){
-        return officeRepo.findAllByEmail(email).get(0);
+        Officer officer =  officeRepo.findAllByEmail(email).get(0);
+        return officer;
+    }
+    public void addUserInRedisSession(String info, HttpSession hs){
+       if(!redisTemplate.opsForHash().hasKey(hs.getId(),"userInfo")){
+           redisTemplate.opsForHash().put(hs.getId(),"userInfo", info);
+       }
     }
     public void save(Officer officer){
         officeRepo.save(officer);
@@ -27,7 +40,7 @@ public class OfficerService implements OfficerServiceInt {
             System.out.println("Matched");
             return true;
         }else{
-            System.out.println("Not Matchec");
+            System.out.println("Not Matched");
             return false;
         }
 

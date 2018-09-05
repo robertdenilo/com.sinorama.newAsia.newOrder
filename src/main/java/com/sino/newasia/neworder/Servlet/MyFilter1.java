@@ -14,7 +14,7 @@ import java.io.IOException;
 public class MyFilter1 extends WebStatFilter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-         System.out.println("Need to check user priv...");
+         System.out.println("Need to filter sth...");
          chain.doFilter(request, response);
     }
 

@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
  * druid数据源状态监控. //way one: use annotation and class
  * https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter
  */
+//http://localhost:9999/druid/login.html
 @WebServlet(urlPatterns = {"/druid3/*"}, initParams = {
         // IP白名单 (没有配置或者为空，则允许所有访问)
         @WebInitParam(name = "allow", value = "127.0.0.1"),

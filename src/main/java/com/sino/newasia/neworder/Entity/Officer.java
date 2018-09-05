@@ -4,13 +4,19 @@ package com.sino.newasia.neworder.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "t_officer")
 @Getter
 @Setter
-public class Officer {
+public class Officer implements Serializable {
+    private static final long serialVersionUID = 9120765714832970813L;
+
     @Id
     @Column(name = "email", nullable = false, length = 20)
     private String email;
@@ -36,5 +42,7 @@ public class Officer {
         this.seeAll = seeAll;
 
     }
+
+
 
 }
