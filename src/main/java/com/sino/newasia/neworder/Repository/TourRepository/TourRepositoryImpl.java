@@ -1,11 +1,26 @@
 package com.sino.newasia.neworder.Repository.TourRepository;
 
+import com.sino.newasia.neworder.Entity.Tour;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
+
 public class TourRepositoryImpl {
+
+//    <jpa:repositories base-package="com.sino.newasia.neworder.Repository.TourRepository.*"
+//    repository-impl-postfix="Impl"
+//    query-lookup-strategy = "create-if-not-found"
+//    entity-manager-factory-ref="entityManagerFactory"
+//    transaction-manager-ref="transactionManager" >
+//    </jpa:repositories>
+
 
 //    @PersistenceContext
 //    private EntityManager em;
@@ -19,6 +34,14 @@ public class TourRepositoryImpl {
 //        return page;
 //    }
 
+//    @Autowired
+//    private TourRepository tourRepository;
+//
+//    public List<Tour> findAllByTourid(String tourid){return tourRepository.findAllByTourid(tourid);}
+//    public Tour findByTourid(String tourid){return tourRepository.findByTourid(tourid);}
+//    public List<Object[]>  findAllByRouteid(String routeid){return tourRepository.findAllByRouteid(routeid);}
+//    public Tour save(Tour tour){return tourRepository.save(tour);}
+//    public void delete(Tour tour){tourRepository.delete(tour);}
 
 
     @PersistenceContext
@@ -34,4 +57,30 @@ public class TourRepositoryImpl {
         List<Object[]> list = query.getResultList();
         return list;
     }
+
+    @Transactional
+    public int update(@Param("tour") Tour tour){
+        //String sql = "update t_tour t set t.tourid = ? where t.tourid = ? ";
+        String sql = "update Tour t set t.status=:status, t.departdate = :departdate, t.routeid=:routeid where t.tourid=:tourid";
+        //em.getTransaction().begin();
+        Query query = em.createQuery(sql);
+        query.setParameter("tourid", tour.getTourid());
+        query.setParameter("status", tour.getStatus());
+        query.setParameter("departdate", tour.getDepartdate());
+        query.setParameter("routeid", tour.getRouteid());
+        query.executeUpdate();
+        //em.getTransaction().commit();
+        return 1;
+
+
+
+        //Tour tour = em.find(Tour.class, 1);
+        //tour.setRouteid("ROUTE2");
+    }
+
+//    @Transactional
+//    public int insert(@Param("tour") Tour tour){
+//        em.persist(tour);
+//        return 1;
+//    }
 }

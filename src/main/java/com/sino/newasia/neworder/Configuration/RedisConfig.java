@@ -85,6 +85,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         @SuppressWarnings({ "rawtypes", "unchecked" })
         //start: use Jackson2JsonRedisSerializer to serialized/de-serialized value
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
