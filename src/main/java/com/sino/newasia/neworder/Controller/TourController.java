@@ -148,12 +148,12 @@ public class TourController {
         //create tourid
         String u1_uuid = UUID.randomUUID().toString();
         String uuid1 = u1_uuid.substring(0,8)+u1_uuid.substring(9,13)+u1_uuid.substring(14,18)+u1_uuid.substring(19,23)+u1_uuid.substring(24);
-        String toudid = "20180910-IT-TEST" + uuid1;
+        String tourid = "20180910-IT-TEST" + uuid1;
         tour.setStatus("4");
         tour.setRouteid("IT-ROUTE1");
         tour.setDepartdate("2018-09-10");
-        tour.setTourid(toudid);
-        tour.setTourpid(toudid);
+        tour.setTourid(tourid);
+        tour.setTourpid(tourid);
 
         try {
             tourServiceCached.save(tour);
@@ -179,9 +179,44 @@ public class TourController {
 
         System.out.println(tourServiceCached.findByTourid(tour.getTourid()));
 
-        tourServiceCached.delete(toudid);
-        System.out.println("====== delete in Redis:  ======"+toudid);
+        tourServiceCached.delete(tourid);
+        System.out.println("====== delete in Redis:  ======"+tourid);
         return "success";
     }
-
+    @RequestMapping(value = "/readbyredis/{tourid}", method = RequestMethod.GET)
+    public String redisTransactionRead(@PathVariable("tourid") String tourid){
+        Tour tour = tourServiceCached.findByTourid(tourid);
+        return tour.getDepartdate();
+    }
+    @RequestMapping(value = "/deletebyredis/{tourid}", method = RequestMethod.GET)
+    public String redisTransactionDelete(@PathVariable("tourid") String tourid){
+        tourServiceCached.delete(tourid);
+        return "ok";
+    }
+    @RequestMapping(value = "/savebyredis/{tourid}/{departdate}", method = RequestMethod.GET)
+    public String redisTransactionSave(@PathVariable("tourid") String tourid, @PathVariable("departdate") String departdate){
+        Tour tour = new Tour();
+        tour.setTourid(tourid);
+        tour.setTourpid(tourid);
+        tour.setStatus("5");
+        tour.setRouteid("IT-ROUTE2");
+        tour.setDepartdate(departdate);
+        try {
+            tourServiceCached.save(tour);
+        } catch (Exception e) {
+            System.out.println("exception when saving");
+        }
+        return "ok";
+    }
+    @RequestMapping(value = "/updatebyredis/{tourid}/{departdate}", method = RequestMethod.GET)
+    public String redisTransactionUpdate(@PathVariable("tourid") String tourid, @PathVariable("departdate") String departdate){
+        Tour tour = new Tour();
+        tour.setTourid(tourid);
+        tour.setTourpid(tourid);
+        tour.setStatus("5");
+        tour.setRouteid("IT-ROUTE2");
+        tour.setDepartdate(departdate);
+        tourServiceCached.update(tour);
+        return tourServiceCached.findByTourid(tourid).getDepartdate();
+    }
 }
